@@ -50,7 +50,7 @@ This should now have extracted compressed pseudo-folder-files, into blobs of fil
 - **“XboxCsMgr.XboxLive.Exceptions.XboxAuthException: '400: Bad Request'”:** Same as previous.
 - **Other Xbox-live-related errors:** Possible situations:
   - Account isn't logged in. Confirm you are logged into the Xbox app with the MS/Xbox account that the KSP saves are under. I don't think you need to have that account linked to windows.
-  - Xbox app is corrupt. Reinstall it, or repair it (either through the xbox app, or through windows settings)
+  - Xbox app is corrupt. Reinstall it, or repair it (either through the xbox app, or through windows settings).
 
 
 
@@ -80,7 +80,7 @@ I started playing KSP on the Xbox, and since I first started I immediately knew 
 In about October 2024, I started launching bigger ships and realised I really need to find a way to transfer my savefile to PC, because my Xbox wasn’t tolerating it at all.
 I asked about whether it would be possible to transfer the savefile across on the KSP reddit’s discord. Everyone said it was impossible. 
 Anyway… I’m too stubborn for anyone’s good, so I joined multiple Xbox modding scene servers, trying to gather information on how savefiles work (in terms of Xbox’s functions), how I could transfer it, and how the savefiles might work on KSP’s side.
-Eventually, I met [tuxuser](https://www.github.com/tuxuser) I was entirely planning on figuring out transferring, encryption, and programming of the transfer application myself, but in the end Tuxuser did almost all of it (thanks again, man!)
+Eventually, I met [tuxuser](https://www.github.com/tuxuser). I was entirely planning on figuring out transferring, encryption, and programming of the transfer application myself, but in the end Tuxuser did almost all of it (thanks again, man!)
 Here’s what we looked at, in order:
 Getting the files from the Xbox in the first place. I tried numerous methods, including taking the HDD out and connecting it via PC to decrypt it using various Github projects ( – which didn’t work: I first had a look at the partitions windows had discovered without any conversion program – of which there was only one that was readable by windows; I tried a conversion program by Github user ‘gitfurious’ and managed to get the python program running, but it would always fail and spit out an error… likely due to a lack of skills on my part; and tried one by user ‘brandonreynolds’ which I remember did error a few times when trying to launch it in visual studio… I don’t remember whether I got it working in the end – I think it did succeed in converting partitions into a windows-readable format, but the partitions/drives that were shown in file explorer afterwards were all of the same ones shown in ADV file explorer on Xbox – i.e. all of the partitions that are hidden in ADV were also missing here. I’m not sure whether this is due to a fault in the conversion, or that the partitions were still hidden somehow… perhaps those partitions are encrypted and either the converter or windows couldn’t read it. Anyhow, I then switched methods and tried a cloud save manager (xbcsmgr) which found the savefiles…
 
