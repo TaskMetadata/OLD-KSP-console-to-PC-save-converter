@@ -1,39 +1,27 @@
 # Requirements and instructions
 ## Requirements:
 
-1. A C# compiler. I’ll be using [Visual Studio community](https://www.visualstudio.microsoft.com), as it’s simple and works in my case. Installation instructions (for the required components) are provided within the main instructions.
+1. The dotnet compiler. I’ll be using [Visual Studio community](https://www.visualstudio.microsoft.com), as it’s simple and works in my case.
 
-2. If you're on Xbox, this [repo (xbcsmgr)](https://www.github.com/billynothingelse/xbcsmgr). It is a cloud save manager for the Xbox Network. It downloads raw save files from the cloud.
+2.The xbox cloud save from [repo (xbcsmgr)](https://www.github.com/billynothingelse/xbcsmgr).
 
-3. The Python script included in this repo. It converts/extracts the compressed console savefiles to PC readable ones. On this page, I sometimes refer to it as an ‘extractor’ or ‘python extractor’.
-
-4. Python for CMD. By extension, you’ll need the ‘pip install’ plugin, so you can download the package ‘dissect.cstruct’. All 3 are required. Installation instructions for all 3 are provided within the main instructions.
-
-
-## Important notes:
-
-1. I use ‘savegame’ to refer to the options seen on the ‘load game’ menu on the main menu. I use ‘quicksaves’ to refer to the options seen in the ‘load’ menu on the pause menu while in a savegame.
-
-2. As far as I know, no major data is lost when converting, but I haven’t had much time to test it. Will update this page when I get the chance to check it all.
-
-3. I’ve written this page for use with a Windows computer and an Xbox. 
-This should still work on Mac and Linux, albeit some instructions might be wrong (e.g. there is no Microsoft Store on Mac or Linux). Use equivalent methods for them.\
-***As for Playstation*** – The Playstation edition is very similar to the Xbox edition, if not identical, and their save structures are the same. Therefore, the .py extractor on this page can be used on their files too. However, you'll need another way to actually get the save files off the console; this page only has instructions for downloading the saves off of Xboxes (steps 1-3). I've heard that the PS4 can download savefiles onto USB, and apparently there is a subscription service for Playstation 5 that allows uploading savefiles to the cloud. Sometime soon, I’ll confirm which methods work. Therefore, steps 1 to 3 are for Xbox only (as they are instructions to download the saves from an Xbox) but I still *highly recommend* reading step 3, as it includes info that is seen in the Playstation version too. Steps 4 and 5 apply to both consoles - once you have obtained the save files from a playstation, you may proceed to step 3/4. Do also note that I may mention Xbox buttons or Xbox saves, but generally you can replace it with an equivalent process or word for Playstation.
-
+3. This gthub repo code downloaded on your computer
+   
+4. Python 3.9+
 
 ## Instructions:
 
 (sorry for the excessive length. Majority of it is explanation and additional information)
 
 1. Your KSP saves should be backed up to the Xbox Network. That is, ensure you’ve been online while running the game, perhaps leave it running for a little while with a savegame loaded to make sure it has backed up the latest saves.
-2. Running the C# compiler, and running xbcsmgr: First, [download Visual Studio](https://www.visualstudio.microsoft.com). Once you run the installer: when prompted, select the workload of `.NET desktop development`, then go to the ‘individual components’ tab and select the following: `C# and Visual Basic Roslyn Compilers`; `C# and Visual Basic`; and `.NET 7.0 Runtime (out of support)`. Install all of those. Next, go to the Github page for [xbcsmgr](https://www.github.com/billynothingelse/xbcsmgr), click the green `code` button, and then copy the clone link there. Open Visual Studio - it should bring you to a homescreen with ‘get started’; click the `Clone a repository` button, and paste the Github clone link in the `repository location`. The path is not important. Once that’s done, you should be looking at a window that has a green play button at the top, with the text `XboxCsMgr.Client`. that button will start the application. The output box will come up with a lot of text; that is normal.
+
+2. Download xbcsmgr from GitHub. If using visule studio 2022 make sure you have the c# desktop option checked in the installer if not [Getting Started](https://learn.microsoft.com/en-us/visualstudio/get-started/csharp/?view=vs-2022), Click the green play button in the top center of the screen. If using dotnet cli cd in to the xbcsmgr and run dotnet run
+   
 3. Note that xbcsmgr pulls any Xbox save data that is associated with the logged in *Xbox* account. That is, not the Microsoft Store account, not the logged-in windows account, but the account that is logged in on the PC Xbox app. At least, that’s how I get it to work. You should now have a white box with a list of your played games on the left. Scroll down on this list until you find KSP. Click on it. If the app crashes, that’s fine, click the stop/reload button and reopen it. After clicking it, a folder should appear on the right. Click the triangle next to it, which should reveal a bunch of files. These are all compressed folders, and each one corresponds to a savegame. I call them pseudo-folder-files. You’ll need to download each of these pseudo-folder-files by right-clicking on them and clicking download. The names of the pseudo-folder-files themselves will be gibberish (except ‘common’, which contains scenario saves). The python decompressor in this repo that we’ll use later does not repair the filenames. In-game, though, the savegames will have their correct names. You'll be able to rename those folders at the end. If you’d like, you can verify that you have downloaded all the files by comparing the size in MB of all of the files you downloaded added together, with the reported size of your user’s save data for the game on Xbox (hamburger button on the game>manage game and addons>save data> check the listed save data for your user).
-4. We’ll now install the Python-related programs. First, we’ll need to install Python for command prompt. In the Microsoft Store, search for ‘Python’ and select the newest one (although any should work). Install that. You’ll need the pip installer package for Python, too, but installing Python via the MS store should’ve installed it automatically. We’ll be using pip to install ‘dissect.cstruct’ which is a required package for this blob extractor. Once python has finished downloading, open command prompt (press Win+R and type `cmd`). Type in `pip install dissect.cstruct`. This should install dissect.cstruct; confirm that by checking for the message ‘Successfully installed dissect.cstruct’.
-5. Finally, We’ll prepare for and run the Python script that converts the savegame pseudo-folder-files into folders & files. Download the python extractor (the .py file) from this repo into an empty folder by clicking on it at the top of the page and clicking the download button on the righthand side. Also in that same folder, create more folders, naming them for each savegame/pseudo-folder-files we’ll be extracting – for now, use the same names as the gibberish names of the pseudo-folder-files, so we know which pseudo-folder-file was extracted where. Later, you’ll be able to check the correct name of the savegame and rename the folder for it.\
-The syntax (in cmd) for the extractor (the .py file) is `python [path to the extractor] [path to the input file] [path to the output folder]` without the square brackets. The extractor takes one of the input pseudo-folder-files downloaded from xbcsmgr, and extracts it into an output folder. See example #1 in [the examples section](#Examples-see-hashtags-above) for an example. Note that the extractor can only do one savegame/pseudo-folder-file at a time.
 
-This should now have extracted compressed pseudo-folder-files, into blobs of files and then decompressed them. The output folders (i.e. the ones you created and named with the gibberish names) are the folders you can put into the saves directory in the game. As the game’s load saved games menu will show the correct names, you can put one folder in at a time, launch the game, take the correct name of the savegame from the load saved games menu, and rename the savegame. This is optional, however.
+5. With the save data extracted you can know open you terminal ( Windows terminal for windows ) you will first need to install dissect.cstruct with pip ```bash pip install dissect.cstruct ``` 
 
+6. Now with the packages installed we can know run the extract.py file from this repo. Make sure the terminal path is located where you downloaded this repo. Then you can run ```bash python ./extracter.py [path to the input file] [path to the output folder]``` for example ```bash python “C:\Users\JohnDoe\Desktop\python extractor\extract.py” C:\Users\JohnDoe\Desktop\xbcsmgrfiles\gameSave C:\Users\JohnDoe\Desktop\outputkspsavegames\gameSave ```
 
 # Credits
 
@@ -50,29 +38,11 @@ This should now have extracted compressed pseudo-folder-files, into blobs of fil
 - **“XboxCsMgr.XboxLive.Exceptions.XboxAuthException: '400: Bad Request'”:** Same as previous.
 - **Other Xbox-live-related errors:** Possible situations:
   - Account isn't logged in. Confirm you are logged into the Xbox app with the MS/Xbox account that the KSP saves are under. I don't think you need to have that account linked to windows.
-  - Xbox app is corrupt. Reinstall it, or repair it (either through the xbox app, or through windows settings).
-
-
-
-## Python:
-- **Pip:**
-  - If you get an error related to pip not being found or recognised, you’ll probably need to install pip manually; you can find instructions for that online.
-  - It may tell you that there's a newer version; there shouldn't be any need to update.
-- **dissect.cstruct:**
-  - if you get an error about dissect.cstruct not installing properly, you've most likely corrupted something, or its unable to find the installation path, or it doesn't have an internet connection. Try rectifying those. If you still have issues, let me know.
-  - **".... not on PATH":** Not a problem. It should still work.
-
-- **“Errno 2: no such file or directory”:** Ensure you include the ‘.py’ extension in the filename for the extractor path.
-
-## Generic Visual Studio:
-- **nuget vulnerability/bouncy castle cryptography vulnerability:** Doesn't really affect a project like this.
-
+  - Xbox app is corrupt. Reinstall it, or repair it (either through the xbox app, or through windows settings)
 
 # Examples (see hashtags above)
 
 #1. If I had the python extractor with the path ‘C:\Users\JohnDoe\Desktop\python extractor\extract.py’, and had the input pseudo-folder-file from xbcsmgr with the path ‘C:\Users\JohnDoe\Desktop\xbcsmgrfiles\gibberishname’, and wanted to output it to a folder with the path ‘C:\Users\JohnDoe\Desktop\outputkspsavegames\gibberishname1\’, I would use the command ‘python “C:\Users\JohnDoe\Desktop\python extractor\extract.py” C:\Users\JohnDoe\Desktop\xbcsmgrfiles\gibberishname C:\Users\JohnDoe\Desktop\outputkspsavegames\gibberishname1\’ (the first path has quotation marks as it contains a space, otherwise cmd would treat the path as 2 separate terms).
-
-
 
 
 # More info/backstory
