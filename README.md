@@ -1,10 +1,7 @@
 # This is an old version. Please see [here](https://github.com/TaskMetadata/KSP-console-to-PC-save-converter) for the new version. Thanks!
+<br>
+</br>
 
-     
-
-       
-
-      
 # Requirements and instructions
 ## Requirements:
 
